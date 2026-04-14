@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>🌍 École du Monde | L'éducation pour tous ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:opsz,wght@9..40,300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1a6b3c;
+      --primary-dark: #0d4a28;
+      --secondary: #f4a050;
+      --accent: #e8c45a;
+      --cream: #fdf8ef;
+      --dark: #1a2820;
+      --gray: #5a6e65;
+      --light: #f0f7f3;
+      --shadow: 0 20px 40px -12px rgba(0,0,0,0.14);
+      --shadow-lg: 0 30px 60px -15px rgba(0,0,0,0.22);
+      --radius: 28px;
+      --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(55px) scale(0.97); } to { opacity:1; transform:none; } }
+    @keyframes fadeLeft { from { opacity:0; transform:translateX(-45px); } to { opacity:1; transform:none; } }
+    @keyframes fadeRight{ from { opacity:0; transform:translateX(45px); }  to { opacity:1; transform:none; } }
+    @keyframes float    { 0%,100% { transform:translateY(0); }   50% { transform:translateY(-16px); } }
+    @keyframes bounce   { 0%,100% { transform:translateY(0); }   45% { transform:translateY(-18px); } 65% { transform:translateY(-8px); } }
+    @keyframes wiggle   { 0%,100% { transform:rotate(-4deg); }   50% { transform:rotate(4deg); } }
+    @keyframes pulse    { 0%,100% { transform:scale(1); }         50% { transform:scale(1.06); } }
+    @keyframes gradFlow { 0% { background-position:0% 50%; } 50% { background-position:100% 50%; } 100% { background-position:0% 50%; } }
+    @keyframes shimmer  { from { transform:translateX(-100%); } to { transform:translateX(100%); } }
+    @keyframes spinSlow { from { transform:rotate(0deg); }       to { transform:rotate(360deg); } }
+    @keyframes ripple   { 0% { transform:scale(0); opacity:0.6; } 100% { transform:scale(4); opacity:0; } }
+    @keyframes bgPulse  { 0%,100% { opacity:1; }  50% { opacity:0.85; } }
+    @keyframes slideIn  { from { opacity:0; transform:translateX(30px); } to { opacity:1; transform:none; } }
+    @keyframes floatUp  { 0% { opacity:0; transform:translateY(60px) scale(0.5); } 20% { opacity:0.8; } 100% { opacity:0; transform:translateY(-120px) scale(1.1); } }
+    @keyframes heartbeat{ 0%,100%{transform:scale(1);} 14%{transform:scale(1.3);} 28%{transform:scale(1);} 42%{transform:scale(1.2);} 70%{transform:scale(1);} }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+      background-size: 300% 300%;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: gradFlow 7s ease infinite;
+    }
+
+    /* ─── FLOATING DECOS ─── */
+    .floating-deco {
+      position: fixed; font-size: 2rem; opacity: 0.55;
+      pointer-events: none; z-index: 0;
+      animation: float 20s ease-in-out infinite;
+    }
+    .deco-1 { top:10%; left:4%;  animation-delay:0s; }
+    .deco-2 { top:28%; right:6%; animation-delay:-6s; font-size:2.6rem; }
+    .deco-3 { bottom:18%; left:8%; animation-delay:-11s; }
+    .deco-4 { top:58%; right:4%; animation-delay:-16s; }
+    .deco-5 { bottom:35%; left:2%; animation-delay:-8s; font-size:1.7rem; }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      position: fixed; top:0; width:100%;
+      background: transparent;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: var(--transition);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 1rem;
+    }
+    .navbar.scrolled {
+      background: rgba(253,248,239,0.96);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+      padding: 0.7rem 2rem;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      display: flex; align-items: center; gap: 0.45rem;
+      animation: wiggle 4s ease-in-out infinite;
+      cursor: pointer; white-space: nowrap;
+    }
+    .logo i { animation: bounce 2.5s ease infinite; }
+
+    .nav-links {
+      justify-self: center;
+      display: flex; gap: 0.4rem; list-style: none;
+      flex-wrap: wrap; justify-content: center; align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none; font-weight: 600; color: var(--dark);
+      transition: var(--transition); position: relative;
+      font-size: 0.9rem; padding: 0.45rem 0.7rem;
+      display: flex; align-items: center; gap: 0.3rem;
+      border-radius: 50px; white-space: nowrap;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:0; left:50%;
+      transform:translateX(-50%);
+      width:0; height:3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius:3px; transition: width 0.35s ease;
+    }
+    .nav-links a:hover { color:var(--primary); }
+    .nav-links a:hover::after { width:70%; }
+
+    /* 2 new navbar buttons */
+    .nav-cta-group {
+      justify-self: end;
+      display: flex; gap: 0.6rem; align-items: center;
+    }
+    .nav-btn {
+      padding: 0.5rem 1.2rem; border-radius: 50px;
+      font-weight: 700; font-size: 0.88rem;
+      text-decoration: none; display: flex; align-items: center; gap: 0.35rem;
+      transition: var(--transition); white-space: nowrap; cursor: pointer;
+      border: none; font-family: 'DM Sans', sans-serif;
+    }
+    .nav-btn-donate {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white; box-shadow: 0 6px 18px rgba(26,107,60,0.35);
+    }
+    .nav-btn-donate:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 28px rgba(26,107,60,0.5);
+    }
+    .nav-btn-newsletter {
+      background: linear-gradient(135deg, var(--secondary), #e87c20);
+      color: white; box-shadow: 0 6px 18px rgba(244,160,80,0.35);
+    }
+    .nav-btn-newsletter:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 28px rgba(244,160,80,0.5);
+    }
+    .nav-btn i { animation: pulse 2s ease-in-out infinite; }
+
+    .burger {
+      display: none; font-size: 1.9rem; cursor: pointer;
+      color: var(--primary); transition: var(--transition);
+      animation: pulse 3s infinite;
+    }
+
+    @media (max-width: 1050px) {
+      .nav-cta-group { display: none; }
+    }
+    @media (max-width: 900px) {
+      .navbar { grid-template-columns: auto 1fr auto; }
+      .nav-links {
+        position: fixed; top:72px; left:-100%;
+        background: rgba(253,248,239,0.98);
+        backdrop-filter: blur(18px);
+        width: 90%; max-width: 400px;
+        height: calc(100vh - 72px);
+        flex-direction: column; align-items: center;
+        justify-content: flex-start; padding-top: 2.5rem;
+        transition: left 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+        border-radius: 0 28px 28px 0;
+        box-shadow: 6px 0 30px rgba(0,0,0,0.1);
+        gap: 0.6rem; z-index: 999;
+      }
+      .nav-links.active { left: 0; }
+      .nav-links a { font-size:1.1rem; padding:0.85rem 1.4rem; width:100%; justify-content:center; border-radius:16px; }
+      .burger { display: flex; z-index: 1001; }
+    }
+
+    /* ─── HERO SLIDER ─── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; color: white;
+    }
+
+    .slider-track {
+      position: absolute; inset: 0;
+      display: flex;
+      transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .slide {
+      min-width: 100%; height: 100%;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .slide-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .slide.active .slide-bg { transform: scale(1); }
+
+    .slide-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(13,74,40,0.85) 0%, rgba(26,107,60,0.6) 50%, rgba(232,196,90,0.4) 100%);
+    }
+
+    .slide-bg-1 { background-image: url('https://www.banquemondiale.org/content/dam/photos/780x439/2016/sep-3/Madagascar_sn_education.JPG'); }
+    .slide-bg-2 { background-image: url('https://ecolesdumonde.org/wp-content/themes/ecolesdumonde/img/home/illu-header.jpg'); }
+    .slide-bg-3 { background-image: url('https://www.defap.fr/wp-content/uploads/2024/05/topaza_enfants.jpg'); }
+    .slide-bg-4 { background-image: url('https://action-education.org/wp-content/uploads/2024/11/JIDE-enfant-avec-pencarte-Apprendre.jpg'); }
+
+    .hero-content {
+      max-width: 920px; z-index: 2;
+      padding: 0 1.5rem;
+      animation: fadeUp 1.2s ease-out;
+      position: relative;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 900; margin-bottom: 1.3rem;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      line-height: 1.08;
+    }
+    .hero-content h1 em { font-style: normal; color: var(--accent); }
+    .hero-content p {
+      font-size: clamp(1.1rem, 2.5vw, 1.38rem);
+      margin-bottom: 2.8rem; font-weight: 400;
+      max-width: 700px; margin-left: auto; margin-right: auto;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2); line-height: 1.65;
+    }
+
+    .hero-decos span {
+      position: absolute; font-size: 3rem; opacity: 0.8;
+      animation: float 4.5s ease-in-out infinite;
+      pointer-events: none; z-index: 1;
+    }
+    .hd-1 { top:14%; left:9%;  animation-delay:0s; }
+    .hd-2 { top:22%; right:11%; animation-delay:-2s; font-size:2.5rem; }
+    .hd-3 { bottom:22%; left:14%; animation-delay:-3.5s; }
+    .hd-4 { bottom:28%; right:9%; animation-delay:-1.5s; font-size:2rem; }
+
+    /* Slider controls */
+    .slider-dots {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 0.6rem; z-index: 5;
+    }
+    .slider-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer; transition: all 0.4s ease;
+      border: 2px solid rgba(255,255,255,0.7);
+    }
+    .slider-dot.active {
+      background: var(--accent);
+      transform: scale(1.3);
+      border-color: var(--accent);
+    }
+
+    .slider-arrows {
+      position: absolute; top: 50%; z-index: 5;
+      display: flex; justify-content: space-between;
+      width: 100%; padding: 0 1.5rem;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .slider-arrow {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255,255,255,0.4);
+      color: white; font-size: 1.3rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: var(--transition);
+      pointer-events: all;
+    }
+    .slider-arrow:hover {
+      background: var(--primary); border-color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    /* ─── BTN ─── */
+    .btn-group { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .btn {
+      padding: 1rem 2.2rem; border-radius: 60px;
+      font-weight: 700; text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-size: 1.05rem; position: relative; overflow: hidden;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn::before {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      transform:translateX(-100%); transition: transform 0.65s ease; z-index:-1;
+    }
+    .btn:hover::before { transform:translateX(100%); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color:white; box-shadow: 0 10px 28px rgba(26,107,60,0.4);
+    }
+    .btn-primary:hover { transform:translateY(-5px) scale(1.03); box-shadow: 0 18px 38px rgba(26,107,60,0.55); }
+
+    .btn-outline {
+      border: 2.5px solid white; color:white; background:transparent;
+    }
+    .btn-outline:hover { background:white; color:var(--primary-dark); transform:translateY(-5px); }
+
+    .btn-accent {
+      background: linear-gradient(135deg, var(--secondary), #d4732a);
+      color: white; box-shadow: 0 10px 28px rgba(244,160,80,0.4);
+    }
+    .btn-accent:hover { transform:translateY(-5px) scale(1.03); box-shadow: 0 18px 38px rgba(244,160,80,0.55); }
+
+    /* ─── SECTIONS ─── */
+    .container {
+      max-width: 1320px; margin: 0 auto;
+      padding: 5.5rem 2rem; position: relative;
+    }
+
+    .section-hidden { opacity:0; transform:translateY(55px); transition: opacity 0.85s ease, transform 0.85s ease; }
+    .section-visible { opacity:1; transform:none; }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      text-align:center; font-size: clamp(2rem, 4vw, 2.9rem);
+      font-weight: 800; margin-bottom: 0.9rem;
+      color: var(--dark); position:relative;
+      display:inline-block; left:50%; transform:translateX(-50%);
+    }
+    .section-title::after {
+      content:''; position:absolute; bottom:-12px; left:50%;
+      transform:translateX(-50%);
+      width:85px; height:5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius:3px; animation: pulse 2.5s ease-in-out infinite;
+    }
+    .section-sub {
+      text-align:center; color:var(--gray);
+      max-width:760px; margin:0 auto 3.5rem auto;
+      font-size:1.13rem; line-height:1.65;
+      position:relative; margin-top:1.5rem;
+    }
+
+    /* ─── PHOTO STRIPS (inline photos per section) ─── */
+    .photo-strip {
+      display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.5rem;
+      margin: 2rem 0; scrollbar-width: none;
+    }
+    .photo-strip::-webkit-scrollbar { display: none; }
+    .photo-strip-item {
+      min-width: 220px; height: 150px; border-radius: 18px;
+      overflow: hidden; flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      transition: var(--transition); cursor: pointer;
+      position: relative;
+    }
+    .photo-strip-item::after {
+      content: ''; position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 55%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .photo-strip-item:hover { transform:scale(1.04) translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.2); }
+    .photo-strip-item:hover::after { opacity: 1; }
+    .photo-strip-item img { width:100%; height:100%; object-fit:cover; transition: transform 0.6s ease; }
+    .photo-strip-item:hover img { transform:scale(1.1); }
+
+    /* ─── MISSION ─── */
+    .mission-grid {
+      display: flex; gap: 4rem; align-items: center;
+      flex-wrap: wrap;
+    }
+    .mission-text { flex:1; min-width:300px; animation: fadeLeft 1s ease forwards; }
+    .mission-text h3 {
+      font-family:'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      margin-bottom: 1.3rem; color: var(--primary);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .mission-text h3 i { animation: bounce 2s ease infinite; color: var(--accent); }
+    .mission-text p {
+      margin-bottom: 1.2rem; line-height: 1.75;
+      color: #2a3d35; font-size: 1.06rem;
+      position: relative; padding-left: 1.6rem;
+    }
+    .mission-text p::before {
+      content:'🌱'; position:absolute; left:0; top:2px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .mission-img-col { flex:1; min-width:300px; }
+    .mission-img {
+      border-radius: var(--radius); overflow:hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition); position:relative;
+      animation: fadeRight 1s ease forwards;
+    }
+    .mission-img::before {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg, transparent 45%, rgba(26,107,60,0.18));
+      z-index:1; pointer-events:none;
+    }
+    .mission-img img { width:100%; height:380px; object-fit:cover; transition: transform 0.7s ease; display:block; }
+    .mission-img:hover { transform:translateY(-10px); box-shadow:var(--shadow-lg); }
+    .mission-img:hover img { transform:scale(1.07); }
+    .img-badge {
+      position:absolute; bottom:18px; right:18px;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      color:white; padding:0.55rem 1.1rem;
+      border-radius:50px; font-weight:700;
+      font-size:0.9rem; z-index:2;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      display:flex; align-items:center; gap:0.4rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* ─── PROGRAMMES ─── */
+    .section-alt { background: linear-gradient(135deg, #f0f7f3, #fdf8ef 60%, #f0f7f3); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.2rem; margin-top: 1rem;
+    }
+    .program-card {
+      background: white; border-radius: var(--radius);
+      overflow: hidden; box-shadow: 0 12px 32px -8px rgba(0,0,0,0.09);
+      transition: var(--transition); cursor:pointer;
+      position: relative;
+    }
+    .program-card::before {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg, transparent 60%, rgba(232,196,90,0.12));
+      opacity:0; transition: opacity 0.3s; pointer-events:none; z-index:1;
+    }
+    .program-card:hover { transform:translateY(-14px) scale(1.02); box-shadow:var(--shadow-lg); }
+    .program-card:hover::before { opacity:1; }
+    .card-img { height:215px; overflow:hidden; position:relative; }
+    .card-img::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(0,0,0,0.3), transparent 60%); z-index:1;
+    }
+    .card-img img { width:100%; height:100%; object-fit:cover; transition: transform 0.6s ease; display:block; }
+    .program-card:hover .card-img img { transform:scale(1.1) rotate(0.5deg); }
+    .card-corner { position:absolute; top:14px; right:14px; font-size:1.9rem; z-index:2; animation:wiggle 2.5s ease-in-out infinite; filter:drop-shadow(0 3px 8px rgba(0,0,0,0.2)); }
+    .card-content { padding:1.8rem; position:relative; z-index:2; }
+    .card-content h3 {
+      font-family:'Playfair Display',serif;
+      margin-bottom:0.75rem; font-size:1.5rem;
+      display:flex; align-items:center; gap:0.5rem; color:var(--primary);
+    }
+    .card-content h3 i { color:var(--secondary); animation:pulse 2.5s ease-in-out infinite; }
+    .card-content p { color:var(--gray); line-height:1.6; font-size:1rem; }
+
+    /* ─── STATS ─── */
+    .stats-section {
+      background: linear-gradient(135deg, #e6f5ec, #fdf6e3 50%, #e8f1fd);
+      border-radius: 52px; margin: 2.5rem 1.5rem;
+      position:relative; overflow:hidden;
+      box-shadow: inset 0 0 60px rgba(26,107,60,0.07);
+    }
+    .stats-section::before {
+      content:""; position:absolute; inset:0;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(244,160,80,0.12) 0%, transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(232,196,90,0.15) 0%, transparent 35%);
+      pointer-events:none; animation: bgPulse 12s ease-in-out infinite;
+    }
+    .stats-grid {
+      display:flex; flex-wrap:wrap; justify-content:space-around;
+      text-align:center; gap:2.5rem; padding:2.5rem 1.5rem; position:relative; z-index:2;
+    }
+    .stat-item {
+      flex:1; min-width:180px; max-width:220px;
+      padding:1.5rem; border-radius:28px;
+      background:rgba(255,255,255,0.88); backdrop-filter:blur(10px);
+      transition:var(--transition); position:relative; overflow:hidden;
+    }
+    .stat-item:hover { transform:translateY(-8px) scale(1.03); box-shadow:0 20px 45px rgba(0,0,0,0.12); background:white; }
+    .stat-icon { font-size:2.8rem; margin-bottom:0.8rem; display:inline-block; animation:float 3s ease-in-out infinite; }
+    .stat-item:nth-child(1) .stat-icon { color:#4caf50; animation-delay:0s; }
+    .stat-item:nth-child(2) .stat-icon { color:#2196f3; animation-delay:-0.75s; }
+    .stat-item:nth-child(3) .stat-icon { color:#ff9800; animation-delay:-1.5s; }
+    .stat-item:nth-child(4) .stat-icon { color:#9c27b0; animation-delay:-2.25s; }
+    .stat-number { font-family:'Playfair Display',serif; font-size:clamp(2.5rem,5vw,3.9rem); font-weight:800; color:var(--primary); line-height:1; display:flex; justify-content:center; align-items:center; gap:0.3rem; }
+    .stat-number .plus { font-size:2rem; animation:bounce 2s ease infinite; }
+    .stat-label { font-weight:600; color:#2d4a3b; margin-top:0.6rem; font-size:1.05rem; }
+
+    /* ─── GALLERY ─── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.4rem; margin-top: 2rem;
+    }
+    .gallery-item {
+      border-radius: 20px; overflow:hidden;
+      box-shadow: 0 10px 30px -8px rgba(0,0,0,0.13);
+      transition: var(--transition); cursor:pointer; position:relative;
+    }
+    .gallery-item:nth-child(3n+1) { grid-row: span 1; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+    .gallery-item:nth-child(9) { grid-column: span 2; }
+    .gallery-item::before {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55), transparent 55%);
+      opacity:0; transition: opacity 0.35s; z-index:1;
+    }
+    .gallery-item:hover { transform:scale(1.04) translateY(-6px); box-shadow:0 22px 50px -12px rgba(0,0,0,0.25); z-index:10; }
+    .gallery-item:hover::before { opacity:1; }
+    .gallery-item img { width:100%; height:220px; object-fit:cover; transition: transform 0.65s ease; display:block; }
+    .gallery-item:hover img { transform:scale(1.1) rotate(0.4deg); }
+    .gallery-caption {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:0.9rem 1.1rem; color:white;
+      font-weight:600; font-size:0.92rem;
+      transform:translateY(100%); transition: transform 0.38s ease;
+      z-index:2; text-align:center;
+    }
+    .gallery-item:hover .gallery-caption { transform:none; }
+    .gallery-tag {
+      position:absolute; top:12px; left:12px;
+      background: rgba(255,255,255,0.22); backdrop-filter:blur(6px);
+      border: 1px solid rgba(255,255,255,0.4);
+      color:white; font-size:0.78rem; font-weight:700;
+      padding:0.25rem 0.65rem; border-radius:50px; z-index:2;
+      opacity:0; transform:translateY(-5px);
+      transition: all 0.35s ease;
+    }
+    .gallery-item:hover .gallery-tag { opacity:1; transform:none; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem; margin-top: 2rem;
+    }
+    .testimonial-card {
+      background: white; border-radius: 28px;
+      padding: 2.2rem; box-shadow: var(--shadow);
+      position:relative; transition: var(--transition);
+      border-top: 4px solid transparent;
+      background-clip: padding-box;
+    }
+    .testimonial-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
+    .testimonial-card:nth-child(1) { border-top-color: var(--primary); }
+    .testimonial-card:nth-child(2) { border-top-color: var(--secondary); }
+    .testimonial-card:nth-child(3) { border-top-color: var(--accent); }
+    .t-quote { font-size:2.6rem; color:var(--accent); margin-bottom:1rem; display:block; animation: float 3s ease-in-out infinite; }
+    .t-text { font-size:1.08rem; font-style:italic; line-height:1.7; color:#2d3e42; margin-bottom:1.2rem; }
+    .t-author { display:flex; align-items:center; gap:0.8rem; }
+    .t-avatar { width:48px; height:48px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); }
+    .t-name { font-weight:700; color:var(--primary); font-size:1rem; }
+    .t-role { font-size:0.85rem; color:var(--gray); }
+
+    /* ─── CTA ─── */
+    .cta-block {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark), #144e26);
+      text-align:center; border-radius:52px;
+      padding:4rem 2rem; color:white;
+      position:relative; overflow:hidden;
+      box-shadow: 0 25px 55px -12px rgba(26,107,60,0.45);
+    }
+    .cta-block::before {
+      content:''; position:absolute; inset:0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.14) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(232,196,90,0.22) 0%, transparent 35%);
+      animation: bgPulse 8s ease-in-out infinite;
+    }
+    .cta-block h2 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem, 4.5vw, 2.8rem);
+      position:relative; z-index:2; margin-bottom:1rem;
+    }
+    .cta-block p { margin:0 auto 2rem; font-size:1.15rem; max-width:620px; position:relative; z-index:2; opacity:0.93; line-height:1.6; }
+    .cta-block .btn-group { position:relative; z-index:2; }
+    .cta-hearts { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:1; }
+    .cta-heart { position:absolute; font-size:1.5rem; animation: floatUp 6s ease-in forwards; opacity:0; }
+
+    /* ─── NEWSLETTER MODAL ─── */
+    .modal-overlay {
+      display:none; position:fixed; inset:0; z-index:9999;
+      background: rgba(10,30,20,0.7); backdrop-filter:blur(8px);
+      align-items:center; justify-content:center;
+    }
+    .modal-overlay.active { display:flex; animation: fadeUp 0.4s ease; }
+    .modal-box {
+      background: white; border-radius: 32px;
+      padding: 3rem 2.5rem; max-width: 480px; width: 90%;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.3);
+      position: relative; text-align: center;
+    }
+    .modal-close {
+      position:absolute; top:1rem; right:1.2rem;
+      background:none; border:none; font-size:1.5rem;
+      color:var(--gray); cursor:pointer; transition:var(--transition);
+    }
+    .modal-close:hover { color:var(--primary); transform:rotate(90deg); }
+    .modal-box h3 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--primary); margin-bottom:0.6rem; }
+    .modal-box p { color:var(--gray); margin-bottom:1.5rem; line-height:1.6; }
+    .modal-input {
+      width:100%; padding:0.9rem 1.2rem;
+      border: 2px solid #e0e8e4; border-radius:12px;
+      font-size:1rem; font-family:'DM Sans',sans-serif;
+      transition: border-color 0.3s; margin-bottom:1rem; outline:none;
+    }
+    .modal-input:focus { border-color:var(--primary); }
+    .modal-submit {
+      width:100%; padding:1rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color:white; border:none; border-radius:12px;
+      font-size:1.05rem; font-weight:700; cursor:pointer;
+      transition:var(--transition); font-family:'DM Sans',sans-serif;
+    }
+    .modal-submit:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(26,107,60,0.4); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: linear-gradient(135deg, #0c261c, #183a2a);
+      color:#ccd9cc; padding:3.5rem 2rem 2rem;
+      margin-top:4rem; position:relative;
+    }
+    .footer-wave {
+      position:absolute; top:-1px; left:0; right:0;
+      height:50px; overflow:hidden;
+    }
+    .footer-wave svg { width:100%; height:100%; }
+    .footer-content {
+      max-width:1280px; margin:auto;
+      display:flex; justify-content:space-between;
+      flex-wrap:wrap; gap:2.5rem; position:relative; z-index:2;
+    }
+    .footer-brand { flex:1; min-width:280px; }
+    .footer-brand strong { font-family:'Playfair Display',serif; font-size:1.6rem; display:flex; align-items:center; gap:0.5rem; color:white; margin-bottom:0.8rem; }
+    .footer-brand strong i { animation: wiggle 3s ease-in-out infinite; }
+    .footer-brand p { margin:0.5rem 0; opacity:0.88; line-height:1.6; }
+    .footer-brand a { color:var(--accent); text-decoration:none; transition:var(--transition); display:inline-flex; align-items:center; gap:0.4rem; margin-top:0.4rem; }
+    .footer-brand a:hover { color:white; transform:translateX(4px); }
+    .social-icons { display:flex; gap:0.9rem; flex-wrap:wrap; align-items:flex-start; }
+    .social-icons a {
+      width:48px; height:48px; border-radius:50%;
+      background:rgba(255,255,255,0.1);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--accent); font-size:1.35rem;
+      transition:var(--transition); text-decoration:none; position:relative; overflow:hidden;
+    }
+    .social-icons a::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--primary),var(--accent)); opacity:0; transition:opacity 0.3s; z-index:-1; }
+    .social-icons a:hover { transform:translateY(-6px) scale(1.1); color:white; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .social-icons a:hover::before { opacity:1; }
+    .footer-bottom {
+      text-align:center; padding-top:2rem; margin-top:2.5rem;
+      border-top:1px solid rgba(255,255,255,0.1);
+      color:rgba(204,217,204,0.7); font-size:0.9rem; position:relative; z-index:2;
+    }
+    .footer-bottom i { color:var(--secondary); animation:heartbeat 1.6s ease-in-out infinite; }
+
+    /* ─── SCROLL TOP ─── */
+    .scroll-top {
+      position:fixed; bottom:2rem; right:2rem; z-index:500;
+      width:48px; height:48px; border-radius:50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color:white; border:none; font-size:1.2rem;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 24px rgba(26,107,60,0.4);
+      transition:var(--transition); opacity:0; transform:translateY(20px);
+    }
+    .scroll-top.visible { opacity:1; transform:none; }
+    .scroll-top:hover { transform:translateY(-4px) scale(1.1); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .mission-grid, .mission-img-col { flex-direction:column; }
+      .stats-grid { flex-direction:column; gap:1.5rem; }
+      .footer-content { flex-direction:column; text-align:center; }
+      .social-icons { justify-content:center; }
+      .gallery-item:nth-child(4), .gallery-item:nth-child(9) { grid-column:span 1; }
+      .slider-arrows { display:none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating Decorations -->
+<div class="floating-deco deco-1">📚</div>
+<div class="floating-deco deco-2">✏️</div>
+<div class="floating-deco deco-3">🎨</div>
+<div class="floating-deco deco-4">🌍</div>
+<div class="floating-deco deco-5">✨</div>
+
+<!-- Newsletter Modal -->
+<div class="modal-overlay" id="newsletterModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div style="font-size:3rem;margin-bottom:0.8rem;animation:float 3s ease-in-out infinite;">📬</div>
+    <h3>Rejoignez notre Newsletter</h3>
+    <p>Recevez nos actualités, témoignages et nouvelles du terrain directement dans votre boîte mail. 🌱</p>
+    <input type="email" class="modal-input" placeholder="Votre adresse e-mail..." id="newsletterEmail">
+    <button class="modal-submit" onclick="subscribeNewsletter()">
+      <i class="fas fa-paper-plane"></i> M'inscrire gratuitement
+    </button>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="logo" id="logoSpark">
+    <i class="fas fa-seedling"></i> École du Monde
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home"><i class="fas fa-home"></i> Accueil</a></li>
+    <li><a href="#mission"><i class="fas fa-bullseye"></i> Mission</a></li>
+    <li><a href="#programmes"><i class="fas fa-book-open"></i> Programmes</a></li>
+    <li><a href="#impact"><i class="fas fa-chart-line"></i> Impact</a></li>
+    <li><a href="#galerie"><i class="fas fa-images"></i> Galerie</a></li>
+    <li><a href="#contact"><i class="fas fa-hand-holding-heart"></i> Agir</a></li>
+  </ul>
+  <div class="nav-cta-group">
+    <a href="#contact" class="nav-btn nav-btn-donate">
+      <i class="fas fa-heart"></i> Faire un don
+    </a>
+    <button class="nav-btn nav-btn-newsletter" onclick="document.getElementById('newsletterModal').classList.add('active')">
+      <i class="fas fa-envelope"></i> Newsletter
+    </button>
+  </div>
+  <div class="burger" id="burger" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── HERO SLIDER ── -->
+  <section id="home" class="hero">
+    <div class="slider-track" id="sliderTrack">
+      <!-- Slide 1 -->
+      <div class="slide active">
+        <div class="slide-bg slide-bg-1"></div>
+        <div class="slide-overlay"></div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="slide">
+        <div class="slide-bg slide-bg-2"></div>
+        <div class="slide-overlay"></div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="slide">
+        <div class="slide-bg slide-bg-3"></div>
+        <div class="slide-overlay"></div>
+      </div>
+      <!-- Slide 4 -->
+      <div class="slide">
+        <div class="slide-bg slide-bg-4"></div>
+        <div class="slide-overlay"></div>
+      </div>
+    </div>
+
+    <div class="hero-decos">
+      <span class="hd-1">🌱</span>
+      <span class="hd-2">📖</span>
+      <span class="hd-3">🎓</span>
+      <span class="hd-4">💫</span>
+    </div>
+
+    <div class="hero-content">
+      <h1>L'éducation change <em>le monde</em> ✨</h1>
+      <p>🌈 Chaque enfant mérite une école, un avenir et l'espoir. Ensemble, construisons des ponts vers la connaissance et transformons des vies à Madagascar ! 🚀</p>
+      <div class="btn-group">
+        <a href="#mission" class="btn btn-primary">
+          <i class="fas fa-rocket"></i> Découvrir notre mission
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          <i class="fas fa-heart"></i> Je soutiens <i class="fas fa-sparkles"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Slider Controls -->
+    <div class="slider-arrows">
+      <button class="slider-arrow" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+      <button class="slider-arrow" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="slider-dots" id="sliderDots">
+      <div class="slider-dot active" onclick="goToSlide(0)"></div>
+      <div class="slider-dot" onclick="goToSlide(1)"></div>
+      <div class="slider-dot" onclick="goToSlide(2)"></div>
+      <div class="slider-dot" onclick="goToSlide(3)"></div>
+    </div>
+  </section>
+
+  <!-- ── MISSION ── -->
+  <section id="mission" class="container section-hidden">
+    <div class="mission-grid">
+      <div class="mission-text">
+        <h3><i class="fas fa-star"></i> Une école pour chaque enfant ✧</h3>
+        <p>Depuis 2012, <strong>École du Monde</strong> agit dans les régions reculées de Madagascar pour garantir un accès à une éducation de qualité, inclusive et durable. 🏫</p>
+        <p>Nous construisons des salles de classe 🧱, formons des enseignants 👩‍🏫 et fournissons du matériel pédagogique 📦✏️.</p>
+        <p>Notre conviction : l'alphabétisation et l'éducation sont les piliers de la paix 🕊️ et du développement 🌱. Rejoignez un mouvement mondial ! 💪</p>
+        <div class="btn-group" style="justify-content:flex-start; margin-top:1.5rem;">
+          <a href="#programmes" class="btn btn-primary">Nos actions <i class="fas fa-arrow-right"></i></a>
+          <a href="#contact" class="btn btn-accent"><i class="fas fa-donate"></i> Donner</a>
+        </div>
+      </div>
+      <div class="mission-img-col">
+        <div class="mission-img">
+          <img src="https://ecolesdumonde.org/wp-content/themes/ecolesdumonde/img/home/illu-header.jpg" alt="Élèves malgaches en classe" loading="lazy">
+          <div class="img-badge"><i class="fas fa-check-circle"></i> Projet certifié 2024</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inline photo strip for Mission -->
+    <div class="photo-strip">
+      <div class="photo-strip-item"><img src="https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/press_release_feature/public/UNI573278%20%281%29.webp?itok=cjsAmxpe" alt="Éducation Madagascar" loading="lazy"></div>
+      <div class="photo-strip-item"><img src="https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/Madagascar-generalites-001.jpg.webp?itok=T1ht6NvN" alt="Enfants" loading="lazy"></div>
+      <div class="photo-strip-item"><img src="https://www.humanium.org/fr/wp-content/uploads/2021/05/shutterstock_750447442-1024x678.jpg" alt="Scolarisation" loading="lazy"></div>
+      <div class="photo-strip-item"><img src="https://fr.scalingupnutrition.org/drimage/1320/0/6821/-/sites/default/files/2022-07/MadagascarWorldBank.jpg" alt="Professeur et élèves" loading="lazy"></div>
+      <div class="photo-strip-item"><img src="https://sosenfants.fr/wp-content/uploads/2021/02/enfants-de-madagascar.jpg" alt="Formation" loading="lazy"></div>
+      <div class="photo-strip-item"><img src="https://www.ongzazakely.org/wp-content/uploads/2015/06/image-1-600x520.jpg" alt="Apprendre" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- ── PROGRAMMES ── -->
+  <section id="programmes" class="section-alt section-hidden">
+    <div class="container">
+      <h2 class="section-title gradient-text">🎨 Nos programmes éducatifs</h2>
+      <p class="section-sub">Des initiatives concrètes pour lever les barrières de l'éducation partout à Madagascar 🌍✨</p>
+      <div class="cards-grid">
+        <div class="program-card">
+          <div class="card-img">
+            <img src="https://www.defap.fr/wp-content/uploads/2024/05/topaza_enfants.jpg" alt="École rurale" loading="lazy">
+            <span class="card-corner">🏫</span>
+          </div>
+          <div class="card-content">
+            <h3><i class="fas fa-tree"></i> Écoles rurales</h3>
+            <p>Construction d'infrastructures durables 🌿 et accès à l'eau potable 💧 dans les villages isolés. Chaque brique compte ! 🧱</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="card-img">
+            <img src="https://www.unenfantparlamain.org/files/2021/04/TETIERE-WORDPRESS-760x360-33-760x360.png" alt="Formation enseignants" loading="lazy">
+            <span class="card-corner">👩‍🏫</span>
+          </div>
+          <div class="card-content">
+            <h3><i class="fas fa-chalkboard-teacher"></i> Formation des maîtres</h3>
+            <p>Programmes de pédagogie moderne 🎯 et outils numériques 💻 pour des classes inspirantes et joyeuses ! 🌈</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="card-img">
+            <img src="https://www.unenfantparlamain.org/files/2022/03/760px-%C3%97-460px-%E2%80%93-image-dans-page-Word-press-16.png" alt="Bourses" loading="lazy">
+            <span class="card-corner">🎓</span>
+          </div>
+          <div class="card-content">
+            <h3><i class="fas fa-graduation-cap"></i> Bourses d'excellence</h3>
+            <p>Soutien financier aux filles et garçons défavorisés 👧👦 pour l'accès au secondaire et au-delà ! 🚀</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="card-img">
+            <img src="https://ongbelavenir.org/wp-content/uploads/sites/3/2017/08/Scolarisation_007_IMG_9148.jpg" alt="Nutrition scolaire" loading="lazy">
+            <span class="card-corner">🍱</span>
+          </div>
+          <div class="card-content">
+            <h3><i class="fas fa-apple-alt"></i> Nutrition scolaire</h3>
+            <p>Cantines scolaires et programmes nutritionnels 🥗 pour que les enfants apprennent dans les meilleures conditions ! 💚</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="card-img">
+            <img src="https://www.grandirailleurs.org/wp-content/uploads/2016/05/slider.jpg" alt="Bibliothèques" loading="lazy">
+            <span class="card-corner">📚</span>
+          </div>
+          <div class="card-content">
+            <h3><i class="fas fa-book"></i> Bibliothèques mobiles</h3>
+            <p>Des milliers de livres 📖 acheminés dans les villages pour développer la lecture et l'imagination des enfants ! ✨</p>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="card-img">
+            <img src="https://action-education.org/wp-content/uploads/2024/11/JIDE-enfant-avec-pencarte-Apprendre.jpg" alt="Numérique" loading="lazy">
+            <span class="card-corner">💻</span>
+          </div>
+          <div class="card-content">
+            <h3><i class="fas fa-laptop"></i> Éducation numérique</h3>
+            <p>Tablettes et connexion Internet 🌐 dans les écoles reculées pour préparer les enfants au monde de demain ! 🤖</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline photo strip for Programmes -->
+      <div class="photo-strip" style="margin-top:3rem;">
+        <div class="photo-strip-item"><img src="https://www.sosve.org/wp-content/uploads/2025/03/protection-enfance-madagascar.jpg" alt="Programme" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://espoirsdenfants.org/voy_content/uploads/2020/05/rentree-scolaire-madagascar-1.jpg" alt="Éducation" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://www.grandirailleurs.org/wp-content/uploads/2024/04/IMG_2882-scaled.jpeg" alt="Enfants" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://static.wixstatic.com/media/d04710_3b8957fc1d014ab8a345daa27ef6d3c5~mv2.jpg/v1/fill/w_568,h_468,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/d04710_3b8957fc1d014ab8a345daa27ef6d3c5~mv2.jpg" alt="Bourses" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://cdn.helloasso.com/img/photos/croppedimage-403be3970cab41cbacedd9b70b1bbba9.jpg" alt="Scolarisation" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── IMPACT / STATS ── -->
+  <section id="impact" class="stats-section section-hidden">
+    <div class="container" style="padding:2.5rem 1.5rem;">
+      <h2 class="section-title gradient-text">🎉 Notre impact en chiffres</h2>
+      <p class="section-sub">Grâce à vos dons ❤️ et à nos équipes terrain, nous faisons la différence chaque jour. Ensemble, nous allons plus loin ! 🌟</p>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-school"></i></div>
+          <div class="stat-number"><span class="counter" data-target="187">0</span><span class="plus">+</span></div>
+          <div class="stat-label">Écoles construites 🏗️</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-child"></i></div>
+          <div class="stat-number"><span class="counter" data-target="28450">0</span><span class="plus">+</span></div>
+          <div class="stat-label">Enfants scolarisés 📚</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-globe-americas"></i></div>
+          <div class="stat-number"><span class="counter" data-target="12">0</span></div>
+          <div class="stat-label">Pays partenaires 🌍</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-chalkboard"></i></div>
+          <div class="stat-number"><span class="counter" data-target="3420">0</span><span class="plus">+</span></div>
+          <div class="stat-label">Enseignants formés 👩‍🏫</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALERIE ── -->
+  <section id="galerie" class="container section-hidden">
+    <h2 class="section-title gradient-text">📸 Moments d'espoir</h2>
+    <p class="section-sub">Des images qui racontent le pouvoir magique de l'éducation à Madagascar ✨ Survolez pour découvrir les légendes ! 👆</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/Build-the-change-13.jpg.webp?itok=Zw36xThs" alt="Apprentissage" loading="lazy">
+        <span class="gallery-tag">📖 Lecture</span>
+        <div class="gallery-caption">📖 Apprentissage joyeux</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/media_large_image/public/Build-the-change-24.jpg.webp?itok=XAJS0lc6" alt="Classe créative" loading="lazy">
+        <span class="gallery-tag">🎨 Art</span>
+        <div class="gallery-caption">🎨 Classe créative</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://mondeparlamain.org/wp-content/uploads/2023/01/SM-1-1024x577.jpg" alt="Inspiration" loading="lazy">
+        <span class="gallery-tag">👩‍🏫 Enseignement</span>
+        <div class="gallery-caption">👩‍🏫 Inspiration au quotidien</div>
+      </div>
+      <!-- wide item -->
+      <div class="gallery-item">
+        <img src="https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/UNI673471_0.webp?itok=T1bA9k04" alt="École Madagascar" loading="lazy">
+        <span class="gallery-tag">🏫 École</span>
+        <div class="gallery-caption">🏫 Nouvelle salle de classe</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/EPP-Ampahazony-10%20medium.jpg.webp?itok=yrgwjpT4" alt="Élèves" loading="lazy">
+        <span class="gallery-tag">✏️ Cours</span>
+        <div class="gallery-caption">✏️ Moments de concentration</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://sosenfants.fr/wp-content/uploads/2020/01/enfants-malgaches-ambatolampy.jpg" alt="Enfants" loading="lazy">
+        <span class="gallery-tag">😊 Joie</span>
+        <div class="gallery-caption">😊 Sourires d'espoir</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL5QAwsWwlnMUIquH0hc32HRvffI2pZxwaSA&s" alt="Formation" loading="lazy">
+        <span class="gallery-tag">📝 Formation</span>
+        <div class="gallery-caption">📝 Formation pédagogique</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPAzXCEMQjflsKfpY9Lf0ShzBdzjrAGwN2Kg&s" alt="Bourses" loading="lazy">
+        <span class="gallery-tag">🎓 Bourses</span>
+        <div class="gallery-caption">🎓 Remise de bourses</div>
+      </div>
+      <!-- wide item -->
+      <div class="gallery-item">
+        <img src="https://www.education.gov.mg/wp-content/uploads/2023/06/00006.jpg" alt="Journée" loading="lazy">
+        <span class="gallery-tag">🌟 Événement</span>
+        <div class="gallery-caption">🌟 Journée de l'éducation</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://accesmad.org/wp-content/uploads/2024/03/seance-de-cours-a-la-mediatheque-lycee-EDUCMAD-1024x538.png" alt="Scolarisation" loading="lazy">
+        <span class="gallery-tag">📚 Scolarisation</span>
+        <div class="gallery-caption">📚 Accès pour tous</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://sosenfants.fr/wp-content/uploads/2020/05/ecoliers-madagascar.jpg" alt="Communauté" loading="lazy">
+        <span class="gallery-tag">🤝 Communauté</span>
+        <div class="gallery-caption">🤝 Soutien communautaire</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://cdn.helloasso.com/img/photos/croppedimage-9ec4e71bbb9e4f39a06592493b774931.png" alt="Terrain" loading="lazy">
+        <span class="gallery-tag">🌿 Terrain</span>
+        <div class="gallery-caption">🌿 Mission sur le terrain</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://cdn.allafrica.com/download/pic/main/main/csiid/00651582:9401b22a5038d79bc4db65fd52d299ce:arc614x376:w735:us1.jpg" alt="Avenir" loading="lazy">
+        <span class="gallery-tag">🚀 Avenir</span>
+        <div class="gallery-caption">🚀 Construire l'avenir</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://www.defap.fr/wp-content/uploads/2024/05/topaza_enfants.jpg" alt="Enfants heureux" loading="lazy">
+        <span class="gallery-tag">💛 Bonheur</span>
+        <div class="gallery-caption">💛 Enfants heureux</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://www.unenfantparlamain.org/files/2021/04/TETIERE-WORDPRESS-760x360-33-760x360.png" alt="Maîtres" loading="lazy">
+        <span class="gallery-tag">🏆 Excellence</span>
+        <div class="gallery-caption">🏆 Maîtres d'excellence</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://www.grandirailleurs.org/wp-content/uploads/2024/04/20240127-Art-therapie-20-scaled.jpeg" alt="Lecture" loading="lazy">
+        <span class="gallery-tag">🔬 Science</span>
+        <div class="gallery-caption">🔬 Curiosité scientifique</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://fmf.mg/wp-content/uploads/2020/08/slide4.png" alt="Sport" loading="lazy">
+        <span class="gallery-tag">⚽ Sport</span>
+        <div class="gallery-caption">⚽ Épanouissement sportif</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="section-alt section-hidden">
+    <div class="container">
+      <h2 class="section-title gradient-text">💬 Ils témoignent</h2>
+      <p class="section-sub">Des mots du cœur qui disent l'impact réel de votre générosité sur le terrain 🌱</p>
+
+      <!-- Inline photo strip -->
+      <div class="photo-strip">
+        <div class="photo-strip-item"><img src="https://www.banquemondiale.org/content/dam/photos/780x439/2016/sep-3/Madagascar_sn_education.JPG" alt="" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://ecolesdumonde.org/wp-content/themes/ecolesdumonde/img/home/illu-header.jpg" alt="" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://www.defap.fr/wp-content/uploads/2024/05/topaza_enfants.jpg" alt="" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://action-education.org/wp-content/uploads/2024/11/JIDE-enfant-avec-pencarte-Apprendre.jpg" alt="" loading="lazy"></div>
+        <div class="photo-strip-item"><img src="https://www.grandirailleurs.org/wp-content/uploads/2016/05/slider.jpg" alt="" loading="lazy"></div>
+      </div>
+
+      <div class="testimonials-row">
+        <div class="testimonial-card">
+          <span class="t-quote"><i class="fas fa-quote-right"></i></span>
+          <p class="t-text">Avant, je devais marcher 2 heures pour étudier. Aujourd'hui, notre école a changé ma vie. Je veux devenir médecin grâce à École du Monde !</p>
+          <div class="t-author">
+            <img class="t-avatar" src="https://www.defap.fr/wp-content/uploads/2024/05/topaza_enfants.jpg" alt="Amina" loading="lazy">
+            <div>
+              <div class="t-name">Amina, 14 ans 💙</div>
+              <div class="t-role">Élève à Antananarivo, Madagascar 🇲🇬</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="t-quote"><i class="fas fa-quote-right"></i></span>
+          <p class="t-text">Grâce à la formation reçue, j'ai pu moderniser ma façon d'enseigner. Mes élèves sont plus curieux, plus engagés et beaucoup plus heureux !</p>
+          <div class="t-author">
+            <img class="t-avatar" src="https://ongbelavenir.org/wp-content/uploads/sites/3/2017/08/Scolarisation_007_IMG_9148.jpg" alt="Ravaka" loading="lazy">
+            <div>
+              <div class="t-name">Ravaka, enseignante 🌿</div>
+              <div class="t-role">École de Toamasina, Madagascar 🇲🇬</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <span class="t-quote"><i class="fas fa-quote-right"></i></span>
+          <p class="t-text">Soutenir École du Monde, c'est investir dans la dignité humaine. Chaque euro versé se transforme en sourires d'enfants et en futurs innovateurs. 🌟</p>
+          <div class="t-author">
+            <img class="t-avatar" src="https://action-education.org/wp-content/uploads/2024/11/JIDE-enfant-avec-pencarte-Apprendre.jpg" alt="Marie" loading="lazy">
+            <div>
+              <div class="t-name">Marie, donatrice ❤️</div>
+              <div class="t-role">Paris, France 🇫🇷</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section id="contact" class="container section-hidden">
+    <div class="cta-block">
+      <div class="cta-hearts" id="ctaHearts"></div>
+      <h2><i class="fas fa-hands-helping"></i> Ensemble, offrons un avenir à des millions d'enfants 🌟</h2>
+      <p>Faites un don 💰, devenez bénévole 🤝 ou partagez notre mission 📢. Chaque geste, même petit, compte énormément !</p>
+      <div class="btn-group">
+        <a href="#" class="btn btn-accent">
+          <i class="fas fa-donate"></i> Faire un don maintenant
+        </a>
+        <button class="btn btn-outline" onclick="document.getElementById('newsletterModal').classList.add('active')">
+          <i class="fas fa-envelope"></i> Rejoindre la newsletter
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-wave">
+    <svg viewBox="0 0 1200 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,25 Q300,55 600,25 T1200,25 L1200,55 L0,55 Z" fill="#fdf8ef"/>
+    </svg>
+  </div>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <strong><i class="fas fa-globe-africa"></i> École du Monde</strong>
+      <p>🌱 Éduquer, émanciper, transformer.</p>
+      <p><a href="mailto:contact@ecoledumonde.org"><i class="fas fa-envelope"></i> contact@ecoledumonde.org</a></p>
+      <p>📍 Paris • Antananarivo • Toamasina • Antsirabe</p>
+    </div>
+    <div class="social-icons">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 École du Monde <i class="fas fa-heart"></i> L'éducation pour tous à Madagascar.
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Retour en haut">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<script>
+  /* ── SLIDER ── */
+  let currentSlide = 0;
+  const totalSlides = 4;
+  let autoSlide;
+
+  function goToSlide(n) {
+    const track = document.getElementById('sliderTrack');
+    const dots  = document.querySelectorAll('.slider-dot');
+    const slides = document.querySelectorAll('.slide');
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (n + totalSlides) % totalSlides;
+    slides[currentSlide].classList.add('active');
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((d,i) => d.classList.toggle('active', i === currentSlide));
+  }
+
+  function nextSlide() { goToSlide(currentSlide + 1); resetAuto(); }
+  function prevSlide() { goToSlide(currentSlide - 1); resetAuto(); }
+  function startAuto()  { autoSlide = setInterval(() => goToSlide(currentSlide + 1), 5000); }
+  function resetAuto()  { clearInterval(autoSlide); startAuto(); }
+
+  document.getElementById('nextSlide').addEventListener('click', nextSlide);
+  document.getElementById('prevSlide').addEventListener('click', prevSlide);
+  startAuto();
+
+  /* ── NAVBAR SCROLL ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  /* ── BURGER ── */
+  const burger   = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    burger.innerHTML = navLinks.classList.contains('active')
+      ? '<i class="fas fa-times"></i>'
+      : '<i class="fas fa-bars"></i>';
+  });
+  document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    burger.innerHTML = '<i class="fas fa-bars"></i>';
+  }));
+
+  /* ── SCROLL TOP ── */
+  document.getElementById('scrollTop').addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  /* ── SMOOTH SCROLL ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const id = this.getAttribute('href');
+      if (!id || id === '#') return;
+      const el = document.querySelector(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior:'smooth', block:'start' }); }
+    });
+  });
+
+  /* ── SECTION REVEAL ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('section-visible'), i * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.section-hidden').forEach(s => observer.observe(s));
+
+  /* ── COUNTERS ── */
+  let counted = false;
+  function animateCounter(el, target, dur = 2000) {
+    let start = 0;
+    const inc = target / (dur / 16);
+    const big = target > 1000;
+    function update() {
+      start += inc;
+      if (start >= target) { el.textContent = big ? target.toLocaleString('fr-FR') : target; return; }
+      el.textContent = big ? Math.floor(start).toLocaleString('fr-FR') : Math.floor(start);
+      requestAnimationFrame(update);
+    }
+    update();
+  }
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !counted) {
+        counted = true;
+        document.querySelectorAll('.counter').forEach((c, i) => {
+          setTimeout(() => animateCounter(c, parseInt(c.dataset.target), 1800 + i * 200), i * 280);
+        });
+        createFloatingHearts();
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsSection = document.querySelector('.stats-section');
+  if (statsSection) statsObserver.observe(statsSection);
+
+  /* ── FLOATING HEARTS ── */
+  function createFloatingHearts() {
+    const container = document.getElementById('ctaHearts');
+    if (!container) return;
+    const icons = ['❤️','💙','💚','💛','🌟','✨','🌱','💜'];
+    for (let i = 0; i < 14; i++) {
+      setTimeout(() => {
+        const h = document.createElement('span');
+        h.className = 'cta-heart';
+        h.textContent = icons[Math.floor(Math.random() * icons.length)];
+        h.style.left = Math.random() * 100 + '%';
+        h.style.bottom = '-20px';
+        h.style.animationDelay = Math.random() * 2 + 's';
+        h.style.fontSize = (Math.random() + 1) + 'rem';
+        container.appendChild(h);
+        setTimeout(() => h.remove(), 6500);
+      }, i * 350);
+    }
+  }
+
+  /* ── NEWSLETTER MODAL ── */
+  document.getElementById('modalClose').addEventListener('click', () => {
+    document.getElementById('newsletterModal').classList.remove('active');
+  });
+  document.getElementById('newsletterModal').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('active');
+  });
+  function subscribeNewsletter() {
+    const email = document.getElementById('newsletterEmail').value;
+    if (!email.includes('@')) { alert('Veuillez entrer un email valide.'); return; }
+    document.getElementById('newsletterModal').classList.remove('active');
+    alert('🎉 Merci ! Vous êtes inscrit(e) à notre newsletter !');
+  }
+
+  /* ── INIT on LOAD ── */
+  window.addEventListener('load', () => {
+    if (statsSection && statsSection.getBoundingClientRect().top < window.innerHeight - 100) {
+      if (!counted) { counted=true; document.querySelectorAll('.counter').forEach((c,i) => setTimeout(()=>animateCounter(c,parseInt(c.dataset.target)), i*280)); }
+    }
+  });
+</script>
+</body>
+</html>
