@@ -89,14 +89,23 @@
 
     .logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.75rem; font-weight: 900;
+      font-size: 1.45rem; font-weight: 900;
       background: linear-gradient(135deg, var(--primary), var(--accent));
       -webkit-background-clip: text; background-clip: text; color: transparent;
-      display: flex; align-items: center; gap: 0.45rem;
-      animation: wiggle 4s ease-in-out infinite;
-      cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: 0.6rem;
+      cursor: pointer; white-space: nowrap; text-decoration: none;
     }
-    .logo i { animation: bounce 2.5s ease infinite; }
+    .logo-img {
+      width: 42px; height: 42px; border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid rgba(26,107,60,0.25);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      transition: var(--transition); flex-shrink: 0;
+    }
+    .logo:hover .logo-img { transform: scale(1.08) rotate(-3deg); border-color: var(--accent); }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-text span:first-child { font-size: 1.05rem; }
+    .logo-text span:last-child { font-size: 0.7rem; font-weight: 500; color: var(--gray); background: none; -webkit-background-clip: unset; background-clip: unset; }
 
     .nav-links {
       justify-self: center;
@@ -210,19 +219,20 @@
 
     .slide-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(13,74,40,0.85) 0%, rgba(26,107,60,0.6) 50%, rgba(232,196,90,0.4) 100%);
+      background: linear-gradient(to bottom, rgba(5,30,15,0.55) 0%, rgba(13,60,30,0.42) 50%, rgba(5,20,10,0.65) 100%);
     }
 
-    .slide-bg-1 { background-image: url('https://www.banquemondiale.org/content/dam/photos/780x439/2016/sep-3/Madagascar_sn_education.JPG'); }
-    .slide-bg-2 { background-image: url('https://ecolesdumonde.org/wp-content/themes/ecolesdumonde/img/home/illu-header.jpg'); }
-    .slide-bg-3 { background-image: url('https://www.defap.fr/wp-content/uploads/2024/05/topaza_enfants.jpg'); }
-    .slide-bg-4 { background-image: url('https://action-education.org/wp-content/uploads/2024/11/JIDE-enfant-avec-pencarte-Apprendre.jpg'); }
+    .slide-bg-1 { background-image: url('https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/EPP-Ampahazony-10%20medium.jpg.webp?itok=yrgwjpT4'); background-position: center 30%; }
+    .slide-bg-2 { background-image: url('https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/UNI673471_0.webp?itok=T1bA9k04'); background-position: center center; }
+    .slide-bg-3 { background-image: url('https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/Build-the-change-13.jpg.webp?itok=Zw36xThs'); background-position: center 40%; }
+    .slide-bg-4 { background-image: url('https://sosenfants.fr/wp-content/uploads/2020/01/enfants-malgaches-ambatolampy.jpg'); background-position: center 25%; }
 
     .hero-content {
-      max-width: 920px; z-index: 2;
-      padding: 0 1.5rem;
+      max-width: 860px; z-index: 2;
+      padding: 0 2rem;
       animation: fadeUp 1.2s ease-out;
       position: relative;
+      text-align: center;
     }
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
@@ -233,10 +243,11 @@
     }
     .hero-content h1 em { font-style: normal; color: var(--accent); }
     .hero-content p {
-      font-size: clamp(1.1rem, 2.5vw, 1.38rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
       margin-bottom: 2.8rem; font-weight: 400;
-      max-width: 700px; margin-left: auto; margin-right: auto;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.2); line-height: 1.65;
+      max-width: 680px; margin-left: auto; margin-right: auto;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2); line-height: 1.7;
+      opacity: 0.93;
     }
 
     .hero-decos span {
@@ -626,43 +637,51 @@
 
     /* ─── FOOTER ─── */
     footer {
-      background: linear-gradient(135deg, #0c261c, #183a2a);
-      color:#ccd9cc; padding:3.5rem 2rem 2rem;
-      margin-top:4rem; position:relative;
+      background: #0d2318;
+      color: rgba(200,220,200,0.8);
+      padding: 2.5rem 2rem 1.5rem;
+      margin-top: 4rem;
     }
-    .footer-wave {
-      position:absolute; top:-1px; left:0; right:0;
-      height:50px; overflow:hidden;
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
     }
-    .footer-wave svg { width:100%; height:100%; }
-    .footer-content {
-      max-width:1280px; margin:auto;
-      display:flex; justify-content:space-between;
-      flex-wrap:wrap; gap:2.5rem; position:relative; z-index:2;
+    .footer-logo-area {
+      display: flex; align-items: center; gap: 0.9rem;
     }
-    .footer-brand { flex:1; min-width:280px; }
-    .footer-brand strong { font-family:'Playfair Display',serif; font-size:1.6rem; display:flex; align-items:center; gap:0.5rem; color:white; margin-bottom:0.8rem; }
-    .footer-brand strong i { animation: wiggle 3s ease-in-out infinite; }
-    .footer-brand p { margin:0.5rem 0; opacity:0.88; line-height:1.6; }
-    .footer-brand a { color:var(--accent); text-decoration:none; transition:var(--transition); display:inline-flex; align-items:center; gap:0.4rem; margin-top:0.4rem; }
-    .footer-brand a:hover { color:white; transform:translateX(4px); }
-    .social-icons { display:flex; gap:0.9rem; flex-wrap:wrap; align-items:flex-start; }
-    .social-icons a {
-      width:48px; height:48px; border-radius:50%;
-      background:rgba(255,255,255,0.1);
-      display:flex; align-items:center; justify-content:center;
-      color:var(--accent); font-size:1.35rem;
-      transition:var(--transition); text-decoration:none; position:relative; overflow:hidden;
+    .footer-logo-img {
+      width: 48px; height: 48px; border-radius: 10px;
+      object-fit: cover; border: 2px solid rgba(232,196,90,0.35);
     }
-    .social-icons a::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--primary),var(--accent)); opacity:0; transition:opacity 0.3s; z-index:-1; }
-    .social-icons a:hover { transform:translateY(-6px) scale(1.1); color:white; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
-    .social-icons a:hover::before { opacity:1; }
-    .footer-bottom {
-      text-align:center; padding-top:2rem; margin-top:2.5rem;
-      border-top:1px solid rgba(255,255,255,0.1);
-      color:rgba(204,217,204,0.7); font-size:0.9rem; position:relative; z-index:2;
+    .footer-logo-area strong {
+      font-family: 'Playfair Display', serif;
+      color: white; font-size: 1.1rem; display: block; line-height: 1.2;
     }
-    .footer-bottom i { color:var(--secondary); animation:heartbeat 1.6s ease-in-out infinite; }
+    .footer-logo-area span { font-size: 0.82rem; opacity: 0.65; }
+    .footer-links {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: rgba(200,220,200,0.7); text-decoration: none;
+      font-size: 0.9rem; transition: color 0.25s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-socials { display: flex; gap: 0.8rem; }
+    .footer-socials a {
+      color: rgba(200,220,200,0.6); font-size: 1.1rem;
+      text-decoration: none; transition: color 0.25s;
+    }
+    .footer-socials a:hover { color: var(--accent); }
+    .footer-sep {
+      border: none; border-top: 1px solid rgba(255,255,255,0.08);
+      max-width: 1100px; margin: 1.5rem auto 1rem;
+    }
+    .footer-copy {
+      text-align: center; font-size: 0.82rem;
+      color: rgba(200,220,200,0.4); max-width: 1100px; margin: 0 auto;
+    }
+    .footer-copy i { color: var(--secondary); animation: heartbeat 1.6s ease-in-out infinite; }
 
     /* ─── SCROLL TOP ─── */
     .scroll-top {
@@ -722,7 +741,15 @@
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
   <div class="logo" id="logoSpark">
-    <i class="fas fa-seedling"></i> École du Monde
+    <img
+      src="https://media.licdn.com/dms/image/v2/C4D0BAQHtfwtc1pMWxQ/company-logo_200_200/company-logo_200_200/0/1676367096160/ecole_associative_lle_aux_enfants_madagascar_logo?e=2147483647&v=beta&t=hmd7diRJupBZDQHkCN0531eeaA03HIjYfmFqo-xVDBQ"
+      alt="Logo École du Monde"
+      class="logo-img"
+    >
+    <div class="logo-text">
+      <span>École du Monde</span>
+      <span>Madagascar</span>
+    </div>
   </div>
   <ul class="nav-links" id="navLinks">
     <li><a href="#home"><i class="fas fa-home"></i> Accueil</a></li>
@@ -1115,29 +1142,34 @@
 </main>
 
 <footer>
-  <div class="footer-wave">
-    <svg viewBox="0 0 1200 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,25 Q300,55 600,25 T1200,25 L1200,55 L0,55 Z" fill="#fdf8ef"/>
-    </svg>
-  </div>
-  <div class="footer-content">
-    <div class="footer-brand">
-      <strong><i class="fas fa-globe-africa"></i> École du Monde</strong>
-      <p>🌱 Éduquer, émanciper, transformer.</p>
-      <p><a href="mailto:contact@ecoledumonde.org"><i class="fas fa-envelope"></i> contact@ecoledumonde.org</a></p>
-      <p>📍 Paris • Antananarivo • Toamasina • Antsirabe</p>
+  <div class="footer-inner">
+    <div class="footer-logo-area">
+      <img
+        src="https://media.licdn.com/dms/image/v2/C4D0BAQHtfwtc1pMWxQ/company-logo_200_200/company-logo_200_200/0/1676367096160/ecole_associative_lle_aux_enfants_madagascar_logo?e=2147483647&v=beta&t=hmd7diRJupBZDQHkCN0531eeaA03HIjYfmFqo-xVDBQ"
+        alt="Logo" class="footer-logo-img" loading="lazy"
+      >
+      <div>
+        <strong>École du Monde</strong>
+        <span>Madagascar — depuis 2012</span>
+      </div>
     </div>
-    <div class="social-icons">
+    <div class="footer-links">
+      <a href="#mission">Mission</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#impact">Impact</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#contact">Nous rejoindre</a>
+      <a href="mailto:contact@ecoledumonde.org">Contact</a>
+    </div>
+    <div class="footer-socials">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
       <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
       <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
       <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
     </div>
   </div>
-  <div class="footer-bottom">
-    © 2025 École du Monde <i class="fas fa-heart"></i> L'éducation pour tous à Madagascar.
-  </div>
+  <hr class="footer-sep">
+  <p class="footer-copy">© 2025 École du Monde &nbsp;·&nbsp; L'éducation pour tous <i class="fas fa-heart"></i> &nbsp;·&nbsp; Antananarivo, Madagascar</p>
 </footer>
 
 <button class="scroll-top" id="scrollTop" aria-label="Retour en haut">
