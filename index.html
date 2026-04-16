@@ -190,115 +190,128 @@
 
     /* ─── HERO SLIDER ─── */
     .hero {
-      min-height: 100vh;
       position: relative;
+      width: 100%;
+      height: 100vh;
       overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; color: white;
+      color: white;
     }
 
-    .slider-track {
+    /* Slides wrapper */
+    .slides-wrapper {
       position: absolute; inset: 0;
-      display: flex;
-      transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+      width: 100%; height: 100%;
     }
 
     .slide {
-      min-width: 100%; height: 100%;
-      position: relative;
-      flex-shrink: 0;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
     }
 
-    .slide-bg {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      transform: scale(1.05);
-      transition: transform 8s ease;
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
-    .slide.active .slide-bg { transform: scale(1); }
 
     .slide-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(5,30,15,0.55) 0%, rgba(13,60,30,0.42) 50%, rgba(5,20,10,0.65) 100%);
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.35) 0%,
+        rgba(0,0,0,0.28) 45%,
+        rgba(0,0,0,0.55) 100%
+      );
     }
 
-    .slide-bg-1 { background-image: url('https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/EPP-Ampahazony-10%20medium.jpg.webp?itok=yrgwjpT4'); background-position: center 30%; }
-    .slide-bg-2 { background-image: url('https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/UNI673471_0.webp?itok=T1bA9k04'); background-position: center center; }
-    .slide-bg-3 { background-image: url('https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/Build-the-change-13.jpg.webp?itok=Zw36xThs'); background-position: center 40%; }
-    .slide-bg-4 { background-image: url('https://sosenfants.fr/wp-content/uploads/2020/01/enfants-malgaches-ambatolampy.jpg'); background-position: center 25%; }
-
+    /* Content over slides */
     .hero-content {
-      max-width: 860px; z-index: 2;
-      padding: 0 2rem;
-      animation: fadeUp 1.2s ease-out;
-      position: relative;
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       text-align: center;
+      padding: 0 2rem;
+      z-index: 3;
     }
     .hero-content h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 900; margin-bottom: 1.3rem;
-      text-shadow: 0 4px 24px rgba(0,0,0,0.3);
-      line-height: 1.08;
+      font-size: clamp(2.6rem, 6.5vw, 4.8rem);
+      font-weight: 900; margin-bottom: 1.2rem;
+      text-shadow: 0 3px 18px rgba(0,0,0,0.4);
+      line-height: 1.1; max-width: 900px;
+      animation: fadeUp 1s ease 0.2s both;
     }
     .hero-content h1 em { font-style: normal; color: var(--accent); }
     .hero-content p {
-      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-      margin-bottom: 2.8rem; font-weight: 400;
-      max-width: 680px; margin-left: auto; margin-right: auto;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.2); line-height: 1.7;
-      opacity: 0.93;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      margin-bottom: 2.5rem; font-weight: 400;
+      max-width: 650px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      line-height: 1.7; opacity: 0.95;
+      animation: fadeUp 1s ease 0.45s both;
+    }
+    .hero-content .btn-group {
+      animation: fadeUp 1s ease 0.65s both;
     }
 
-    .hero-decos span {
-      position: absolute; font-size: 3rem; opacity: 0.8;
-      animation: float 4.5s ease-in-out infinite;
-      pointer-events: none; z-index: 1;
-    }
-    .hd-1 { top:14%; left:9%;  animation-delay:0s; }
-    .hd-2 { top:22%; right:11%; animation-delay:-2s; font-size:2.5rem; }
-    .hd-3 { bottom:22%; left:14%; animation-delay:-3.5s; }
-    .hd-4 { bottom:28%; right:9%; animation-delay:-1.5s; font-size:2rem; }
-
-    /* Slider controls */
-    .slider-dots {
-      position: absolute; bottom: 2rem; left: 50%;
-      transform: translateX(-50%);
-      display: flex; gap: 0.6rem; z-index: 5;
-    }
-    .slider-dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      cursor: pointer; transition: all 0.4s ease;
-      border: 2px solid rgba(255,255,255,0.7);
-    }
-    .slider-dot.active {
-      background: var(--accent);
-      transform: scale(1.3);
-      border-color: var(--accent);
-    }
-
+    /* Prev / Next arrows */
     .slider-arrows {
       position: absolute; top: 50%; z-index: 5;
-      display: flex; justify-content: space-between;
-      width: 100%; padding: 0 1.5rem;
+      width: 100%; padding: 0 1.2rem;
       transform: translateY(-50%);
+      display: flex; justify-content: space-between;
       pointer-events: none;
     }
     .slider-arrow {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(8px);
-      border: 2px solid rgba(255,255,255,0.4);
-      color: white; font-size: 1.3rem;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(6px);
+      border: 2px solid rgba(255,255,255,0.45);
+      color: white; font-size: 1.1rem;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: var(--transition);
       pointer-events: all;
     }
     .slider-arrow:hover {
-      background: var(--primary); border-color: var(--primary);
+      background: var(--primary);
+      border-color: var(--primary);
       transform: scale(1.1);
     }
+
+    /* Dots */
+    .slider-dots {
+      position: absolute; bottom: 1.8rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 0.55rem; z-index: 5;
+    }
+    .slider-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      cursor: pointer; transition: all 0.35s ease;
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .slider-dot.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      width: 28px; border-radius: 5px;
+    }
+
+    /* Slide counter */
+    .slide-counter {
+      position: absolute; bottom: 1.8rem; right: 2rem;
+      z-index: 5; color: rgba(255,255,255,0.65);
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .slide-counter span { color: white; font-weight: 700; }
 
     /* ─── BTN ─── */
     .btn-group { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
@@ -776,60 +789,67 @@
 
   <!-- ── HERO SLIDER ── -->
   <section id="home" class="hero">
-    <div class="slider-track" id="sliderTrack">
-      <!-- Slide 1 -->
+
+    <!-- Slides -->
+    <div class="slides-wrapper">
+
       <div class="slide active">
-        <div class="slide-bg slide-bg-1"></div>
+        <img src="https://www.unicef.org/madagascar/sites/unicef.org.madagascar/files/styles/hero_extended/public/EPP-Ampahazony-10%20medium.jpg.webp?itok=yrgwjpT4" alt="Élèves dans une école de Madagascar" loading="eager">
         <div class="slide-overlay"></div>
       </div>
-      <!-- Slide 2 -->
+
       <div class="slide">
-        <div class="slide-bg slide-bg-2"></div>
+        <img src="https://www.humanium.org/fr/wp-content/uploads/2021/05/shutterstock_750447442-1024x678.jpg" alt="Enfants malgaches en classe" loading="lazy">
         <div class="slide-overlay"></div>
       </div>
-      <!-- Slide 3 -->
+
       <div class="slide">
-        <div class="slide-bg slide-bg-3"></div>
+        <img src="https://fr.scalingupnutrition.org/drimage/1320/0/6821/-/sites/default/files/2022-07/MadagascarWorldBank.jpg" alt="Professeur et élèves à Madagascar" loading="lazy">
         <div class="slide-overlay"></div>
       </div>
-      <!-- Slide 4 -->
+
       <div class="slide">
-        <div class="slide-bg slide-bg-4"></div>
+        <img src="https://sosenfants.fr/wp-content/uploads/2020/01/enfants-malgaches-ambatolampy.jpg" alt="Enfants souriants à Ambatolampy" loading="lazy">
         <div class="slide-overlay"></div>
       </div>
+
     </div>
 
-    <div class="hero-decos">
-      <span class="hd-1">🌱</span>
-      <span class="hd-2">📖</span>
-      <span class="hd-3">🎓</span>
-      <span class="hd-4">💫</span>
-    </div>
-
+    <!-- Texte centré -->
     <div class="hero-content">
-      <h1>L'éducation change <em>le monde</em> ✨</h1>
-      <p>🌈 Chaque enfant mérite une école, un avenir et l'espoir. Ensemble, construisons des ponts vers la connaissance et transformons des vies à Madagascar ! 🚀</p>
+      <h1>L'éducation change <em>le monde</em></h1>
+      <p>Chaque enfant mérite une école, un avenir et l'espoir. Ensemble, construisons des ponts vers la connaissance et transformons des vies à Madagascar.</p>
       <div class="btn-group">
         <a href="#mission" class="btn btn-primary">
           <i class="fas fa-rocket"></i> Découvrir notre mission
         </a>
         <a href="#contact" class="btn btn-outline">
-          <i class="fas fa-heart"></i> Je soutiens <i class="fas fa-sparkles"></i>
+          <i class="fas fa-heart"></i> Je soutiens
         </a>
       </div>
     </div>
 
-    <!-- Slider Controls -->
+    <!-- Flèches -->
     <div class="slider-arrows">
-      <button class="slider-arrow" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
-      <button class="slider-arrow" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+      <button class="slider-arrow" id="prevSlide" aria-label="Précédent">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="slider-arrow" id="nextSlide" aria-label="Suivant">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
+
+    <!-- Points de navigation -->
     <div class="slider-dots" id="sliderDots">
       <div class="slider-dot active" onclick="goToSlide(0)"></div>
       <div class="slider-dot" onclick="goToSlide(1)"></div>
       <div class="slider-dot" onclick="goToSlide(2)"></div>
       <div class="slider-dot" onclick="goToSlide(3)"></div>
     </div>
+
+    <!-- Compteur -->
+    <div class="slide-counter"><span id="slideNum">1</span> / 4</div>
+
   </section>
 
   <!-- ── MISSION ── -->
@@ -1183,23 +1203,24 @@
   let autoSlide;
 
   function goToSlide(n) {
-    const track = document.getElementById('sliderTrack');
-    const dots  = document.querySelectorAll('.slider-dot');
+    const dots   = document.querySelectorAll('.slider-dot');
     const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slideNum');
+
     slides[currentSlide].classList.remove('active');
     currentSlide = (n + totalSlides) % totalSlides;
     slides[currentSlide].classList.add('active');
-    track.style.transform = `translateX(-${currentSlide * 100}%)`;
-    dots.forEach((d,i) => d.classList.toggle('active', i === currentSlide));
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    if (counter) counter.textContent = currentSlide + 1;
   }
 
-  function nextSlide() { goToSlide(currentSlide + 1); resetAuto(); }
-  function prevSlide() { goToSlide(currentSlide - 1); resetAuto(); }
+  function nextSlideF() { goToSlide(currentSlide + 1); resetAuto(); }
+  function prevSlideF() { goToSlide(currentSlide - 1); resetAuto(); }
   function startAuto()  { autoSlide = setInterval(() => goToSlide(currentSlide + 1), 5000); }
   function resetAuto()  { clearInterval(autoSlide); startAuto(); }
 
-  document.getElementById('nextSlide').addEventListener('click', nextSlide);
-  document.getElementById('prevSlide').addEventListener('click', prevSlide);
+  document.getElementById('nextSlide').addEventListener('click', nextSlideF);
+  document.getElementById('prevSlide').addEventListener('click', prevSlideF);
   startAuto();
 
   /* ── NAVBAR SCROLL ── */
